@@ -1,27 +1,18 @@
 import java.time.LocalDateTime;
 
-/**@author Wassim Almasri & Anton Schmalfuß
+/**@author Wassim Almasri
  * 
  */
 
-class Angestellter implements IMitarbeiter, ISteuerzahler
+class Angestellter extends Mitarbeiter
     {
-
-        private vertragsArtT vertrag = vertragsArtT.ANGESTELLTER;
-        private String vorname;
-        private String nachname;
-        private float jahresGehaltBisHeute;
         private float monatsLohn;
         private float ueberStundenTarif;
         private int gearbeiteteUeberstunden;
 
     public Angestellter(String vorname, String nachname, float monatsLohn, float ueberStundenTarif, int gearbeiteteUeberStunden)
     {
-        if (monatsLohn/160 < mindestLohn){
-            System.err.println("Der Angestellte " + vorname + " " + nachname + " erhält nicht den gesetzlich festgesetzten Mindestlohn!");
-        }
-        this.vorname = vorname;
-        this.nachname = nachname;
+        super(vorname, nachname);
         this.monatsLohn=monatsLohn;
         this.ueberStundenTarif = ueberStundenTarif;
         this.gearbeiteteUeberstunden = gearbeiteteUeberStunden;
@@ -49,14 +40,6 @@ class Angestellter implements IMitarbeiter, ISteuerzahler
             return gearbeiteteUeberstunden;
         }
 
-        public float getJahresGehaltBisHeute() {
-            return jahresGehaltBisHeute;
-        }
-
-        @Override
-        public String toString() {
-            return vertrag + ": " + nachname + ", " + vorname;
-        }
 
         @Override
         public float entgeltBerechnen()
@@ -66,18 +49,5 @@ class Angestellter implements IMitarbeiter, ISteuerzahler
             }
             jahresGehaltBisHeute += monatsLohn + ueberStundenTarif * gearbeiteteUeberstunden;
             return monatsLohn + ueberStundenTarif * gearbeiteteUeberstunden;
-        }
-
-        @Override
-        public float tatsächlicheEinkommenSteuer() {
-            return jahresGehaltBisHeute * 0.36f;
-        }
-
-        @Override
-        public float voraussichtlicheEinkommenSteuer() {
-            float durchschnittsGehalt =
-                    jahresGehaltBisHeute * 12
-                    / LocalDateTime.now().getMonthValue();
-            return durchschnittsGehalt * 0.36f;
         }
     }
