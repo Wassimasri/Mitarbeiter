@@ -22,7 +22,7 @@ class Angestellter implements IMitarbeiter, ISteuerzahler
         }
         this.vorname = vorname;
         this.nachname = nachname;
-        this.monatsLohn=monatsLohn;
+        this.monatsLohn = monatsLohn;
         this.ueberStundenTarif = ueberStundenTarif;
         this.gearbeiteteUeberstunden = gearbeiteteUeberStunden;
     }
